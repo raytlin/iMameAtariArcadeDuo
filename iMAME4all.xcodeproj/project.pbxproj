@@ -584,6 +584,8 @@
 		638F72BE12CDF0C900DF79C0 /* ticket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 638F72BD12CDF0C900DF79C0 /* ticket.cpp */; };
 		638F73CD12CE560B00DF79C0 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638F73CC12CE560B00DF79C0 /* AudioToolbox.framework */; };
 		638F73D512CE565B00DF79C0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638F73D412CE565B00DF79C0 /* QuartzCore.framework */; };
+		6E62F7021D3B4C89000E3D89 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E62F7011D3B4C89000E3D89 /* ExternalAccessory.framework */; };
+		6EB8795B1D3B40DB00D1E295 /* AtariDuoGamePad.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB8795A1D3B40DB00D1E295 /* AtariDuoGamePad.m */; };
 		8E03D07F13E062D400340580 /* vector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E03D07E13E062D400340580 /* vector.cpp */; };
 		8E13889113F5933C005CF68A /* Default-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E13888A13F5933C005CF68A /* Default-Landscape.png */; };
 		8E13889213F5933C005CF68A /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E13888B13F5933C005CF68A /* Default-Portrait.png */; };
@@ -1453,6 +1455,9 @@
 		638F734E12CDF4D000DF79C0 /* vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vector.h; path = src/vidhrdw/vector.h; sourceTree = "<group>"; };
 		638F73CC12CE560B00DF79C0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		638F73D412CE565B00DF79C0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		6E62F7011D3B4C89000E3D89 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		6EB879591D3B40DB00D1E295 /* AtariDuoGamePad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtariDuoGamePad.h; sourceTree = "<group>"; };
+		6EB8795A1D3B40DB00D1E295 /* AtariDuoGamePad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtariDuoGamePad.m; sourceTree = "<group>"; };
 		8E03D07E13E062D400340580 /* vector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vector.cpp; path = src/vidhrdw/vector.cpp; sourceTree = "<group>"; };
 		8E13888413F5906D005CF68A /* iMame4all_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iMame4all_Prefix.pch; sourceTree = "<group>"; };
 		8E13888813F590B7005CF68A /* iMAME4all.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iMAME4all.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1522,6 +1527,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E62F7021D3B4C89000E3D89 /* ExternalAccessory.framework in Frameworks */,
 				21506B9619033CEF0025B37D /* GameController.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				21FE4E3D184A8D4E0057A49D /* libBTstack.dylib in Frameworks */,
@@ -1602,6 +1608,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6E62F7011D3B4C89000E3D89 /* ExternalAccessory.framework */,
 				21506B9519033CEF0025B37D /* GameController.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
@@ -2754,6 +2761,8 @@
 				8E48E82313D5C52E0037027F /* iph_main.m */,
 				215F669F184B8F350053E5A0 /* LesObjCInterface.h */,
 				215F66A0184B8F350053E5A0 /* LesObjCInterface.m */,
+				6EB879591D3B40DB00D1E295 /* AtariDuoGamePad.h */,
+				6EB8795A1D3B40DB00D1E295 /* AtariDuoGamePad.m */,
 				8E48E82513D5C52E0037027F /* OptionsController.h */,
 				8E48E82613D5C52E0037027F /* OptionsController.m */,
 				8E48E82713D5C52E0037027F /* ScreenView.h */,
@@ -3102,6 +3111,7 @@
 				638F6BF512CCFDE600DF79C0 /* mario.cpp in Sources */,
 				638F6BF612CCFDE600DF79C0 /* marvins.cpp in Sources */,
 				638F6BF712CCFDE600DF79C0 /* matmania.cpp in Sources */,
+				6EB8795B1D3B40DB00D1E295 /* AtariDuoGamePad.m in Sources */,
 				638F6BF812CCFDE600DF79C0 /* mcr1.cpp in Sources */,
 				638F6BF912CCFDE600DF79C0 /* mcr2.cpp in Sources */,
 				638F6BFA12CCFDE600DF79C0 /* mcr3.cpp in Sources */,
@@ -3585,7 +3595,7 @@
 					src/sound,
 				);
 				INFOPLIST_FILE = res/Applications/iMAME4all.app/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/lesbird/imame4all-read-only/MAME4all/trunk/lib",
@@ -3783,7 +3793,7 @@
 					src/sound,
 				);
 				INFOPLIST_FILE = res/Applications/iMAME4all.app/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/lesbird/imame4all-read-only/MAME4all/trunk/lib",

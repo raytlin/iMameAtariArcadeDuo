@@ -46,6 +46,7 @@
 
 #include "minimal.h"
 #import "EmulatorController.h"
+#import "AtariDuoGamePad.h"
 
 extern int iOS_waysStick;
 extern int iOS_inGame;
@@ -54,6 +55,12 @@ extern int btnStates[NUM_BUTTONS];
 extern int iOS_iCadeLayout;
 extern int dpad_state;
 extern unsigned long iCadeUsed;
+
+@interface iCadeView ()
+
+@property (nonatomic, strong) AtariDuoGamePad *atariDuoPad;
+
+@end
 
 @implementation iCadeView
 
@@ -68,6 +75,8 @@ extern unsigned long iCadeUsed;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
     
     emuController = emulatorController;
+    _atariDuoPad = [[AtariDuoGamePad alloc] init];
+    [self configureAtariGamepadHandler];
     
     return self;
 }
@@ -355,6 +364,60 @@ extern unsigned long iCadeUsed;
     }
     
     [emuController handle_DPAD];
+}
+
+- (void)configureAtariGamepadHandler
+{
+    self.atariDuoPad.handler = ^(uint8_t state) {
+        if(!self.atariDuoPad.isConnected) {
+            return;
+        } else if (state == 0) {
+            return;
+        }
+        if (state & ATARI_BUTT_Y) {
+            
+        } else {
+            
+        }
+        if (state & ATARI_BUTT_X) {
+            
+        } else {
+            
+        }
+        if (state & ATARI_BUTT_B) {
+            
+        } else {
+            
+        }
+        if (state & ATARI_BUTT_A) {
+            
+            
+        } else {
+            
+        }
+        if (state & ATARI_RIGHT) {
+            [self insertText:@"d"];
+        } else {
+            
+        }
+        if (state & ATARI_LEFT) {
+            [self insertText:@"a"];
+            
+        } else {
+            
+        }
+        if (state & ATARI_DOWN) {
+            [self insertText:@"x"];
+        } else {
+            
+        }
+        if (state & ATARI_UP) {
+            [self insertText:@"w"];
+            
+        } else {
+            
+        }
+    };
 }
 
 - (void)deleteBackward {
