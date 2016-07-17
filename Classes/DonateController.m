@@ -79,7 +79,6 @@
 
 	UIView *view= [[UIView alloc] initWithFrame:rect];	
 	self.view = view;
-	[view release];
     self.view.backgroundColor = [UIColor whiteColor];
     
    navBar = [ [ UINavigationBar alloc ] initWithFrame: CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, 45.0f)];
@@ -87,7 +86,7 @@
 
    UINavigationItem *item = [[ UINavigationItem alloc ] initWithTitle:@"Donate" ];
    
-   UIBarButtonItem *backButton = [[[UIBarButtonItem alloc] initWithTitle:@"Quit" style:UIBarButtonItemStyleBordered target:/*[self parentViewController]*/self action:  @selector(mydone:) ] autorelease];
+   UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Quit" style:UIBarButtonItemStyleBordered target:/*[self parentViewController]*/self action:  @selector(mydone:) ];
    //UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Quit2" style:UIBarButtonItemStyleBordered target:[self parentViewController]   action:  @selector(done:) ];
    
    item.rightBarButtonItem = backButton;
@@ -170,7 +169,6 @@
 													otherButtonTitles: nil];
 	
 	       [thksAlert show];
-	       [thksAlert release];
      
 }
 
@@ -197,7 +195,6 @@
 														otherButtonTitles: nil];
 		
 		[connectionAlert show];
-		[connectionAlert release];
 	}
     //[self release];
     
@@ -229,7 +226,6 @@
   
     if(navBar!=nil)
     {
-       [navBar  release];
        navBar = nil;
     }  
     
@@ -237,11 +233,9 @@
     {
        //[aWebView stopLoading]; 
        [aWebView setDelegate:nil];       
-       [aWebView release];
        aWebView = nil;
     }   
      
-	[super dealloc];
 }
 
 @end

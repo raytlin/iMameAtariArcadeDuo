@@ -149,15 +149,15 @@ int overscanTVOUT = 1;
 	    if ([[UIScreen screens] count] > 1 && nativeTVOUT) {
 	    											 	        	   					
 			// Internal display is 0, external is 1.
-			externalScreen = [[[UIScreen screens] objectAtIndex:1] retain];			
-			screenModes =  [[externalScreen availableModes] retain];
+			externalScreen = [[UIScreen screens] objectAtIndex:1];			
+			screenModes =  [externalScreen availableModes];
 					
 			// Allow user to choose from available screen-modes (pixel-sizes).
-			UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"External Display Detected!" 
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"External Display Detected!" 
 															 message:@"Choose a size for the external display." 
 															delegate:self 
 												   cancelButtonTitle:nil 
-												   otherButtonTitles:nil] autorelease];
+												   otherButtonTitles:nil];
 			for (UIScreenMode *mode in screenModes) {
 				CGSize modeScreenSize = mode.size;
 				[alert addButtonWithTitle:[NSString stringWithFormat:@"%.0f x %.0f pixels", modeScreenSize.width, modeScreenSize.height]];
@@ -252,7 +252,6 @@ int overscanTVOUT = 1;
     UIView *view= [[UIView alloc] initWithFrame:rect];
     view.backgroundColor = [UIColor blackColor];
     [externalWindow addSubview:view];
-    [view release];
 		
 	[hrViewController setExternalView:view];
 	externalWindow.hidden = NO;
@@ -262,15 +261,7 @@ int overscanTVOUT = 1;
 	else
 	    [hrViewController startEmulation];
 	    
-    [screenModes release];
-	[externalScreen release];
 }
 
--(void)dealloc {
-    [hrViewController release];
-	[deviceWindow dealloc];	
-	[externalWindow dealloc];
-	[super dealloc];
-}
 
 @end

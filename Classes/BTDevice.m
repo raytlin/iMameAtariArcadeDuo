@@ -86,9 +86,5 @@
 	return [NSString stringWithFormat:@"Device addr %@ name %@ COD %x", [BTDevice stringForAddress:&address], name, classOfDevice];
 }
 
-- (void)dealloc {
-	[name release];
-	[super dealloc];
-}
 
 @end

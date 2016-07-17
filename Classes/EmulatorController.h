@@ -95,7 +95,7 @@ enum { BUTTON_PRESS=0,BUTTON_NO_PRESS=1};
   UIImageView	    * imageOverlay;
   DView             * dview;
   //NSTimer           * touchTimer;
-  @public UIView	*externalView;
+  @public UIView	*__weak externalView;
 
   UIImageView	    * dpadView;
   UIImageView	    * buttonViews[NUM_BUTTONS];
@@ -174,6 +174,6 @@ enum { BUTTON_PRESS=0,BUTTON_NO_PRESS=1};
 
 - (void)touchesController:(NSSet *)touches withEvent:(UIEvent *)event;
 
-@property (readwrite,assign)   UIView	 *externalView;
+@property (readwrite,weak)   UIView	 *externalView;
 
 @end

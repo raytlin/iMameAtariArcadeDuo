@@ -79,7 +79,6 @@
 
 	UIView *view= [[UIView alloc] initWithFrame:rect];
 	self.view = view;
-	[view release];
     self.view.backgroundColor = [UIColor whiteColor];
     
    UINavigationBar *navBar = [ [ UINavigationBar alloc ] initWithFrame: CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, 45.0f)];
@@ -88,11 +87,9 @@
    UINavigationItem *item = [[ UINavigationItem alloc ] initWithTitle:@"Credits & Help" ];
    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"OK" style:UIBarButtonItemStyleBordered target:self_parentViewController  action:  @selector(done:) ];
    item.rightBarButtonItem = backButton;
-   [backButton release];
    [ navBar pushNavigationItem: item  animated:YES];
      
    [ self.view addSubview: navBar ];
-   [navBar release];
     
     
     FILE *file;
@@ -121,11 +118,10 @@
             }
             fclose(file);
 
-            [ textView setText: [ [[ NSString alloc ] initWithCString: buffer ] autorelease]];
+            [ textView setText: [[ NSString alloc ] initWithCString: buffer ]];
     }
 
     [ self.view addSubview: textView ];
-    [textView release];
     
     
 }
@@ -146,9 +142,5 @@
 }
 
  
-- (void)dealloc {
-       
-	[super dealloc];
-}
 
 @end

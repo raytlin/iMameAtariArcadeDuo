@@ -73,7 +73,7 @@ typedef enum {
 + (NSString *) stringForAddress:(bd_addr_t *) address;
 
 @property (readonly)          BluetoothDeviceType deviceType;
-@property (readonly)          NSString *          nameOrAddress;
+@property (weak, readonly)          NSString *          nameOrAddress;
 @property (nonatomic, copy)   NSString *          name;
 @property (nonatomic, assign) uint32_t            classOfDevice;
 @property (nonatomic, assign) uint16_t            clockOffset;

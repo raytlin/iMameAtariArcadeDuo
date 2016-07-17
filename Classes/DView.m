@@ -110,10 +110,6 @@ extern int isIpad;
 }
 
 
-- (void)dealloc {
-
-    [super dealloc];
-}
 
 
 @end

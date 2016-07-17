@@ -408,15 +408,5 @@ int iOS_stick_radio = 60;
 }
 
 
-- (void)dealloc {
-
-    if(outerView!=nil)
-      [outerView release];
- 
-    if(innerView!=nil)
-      [innerView release];	   	   
-	   
-	[super dealloc];
-}
 
 @end

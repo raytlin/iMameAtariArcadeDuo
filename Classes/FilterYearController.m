@@ -56,7 +56,6 @@
 - (void)viewDidLoad {
 	NSArray *array = [[NSArray alloc] initWithObjects:YEAR_LIST, nil];
 	self.list = array;
-	[array release];
     [super viewDidLoad];
 }
 
@@ -64,17 +63,12 @@
 	[super viewDidUnload];
 }
 
-- (void)dealloc {
-	[list release];
-	[super dealloc];
-}
 
 - (void)viewWillAppear:(BOOL)animated {
     self.title = @"Year";
     
     FilterOptions *op = [[FilterOptions alloc] init];
     fyear = op.flt_year;
-    [op release];
     
     [super viewWillAppear:animated];
     
@@ -95,7 +89,6 @@
     op.flt_year = fyear;
     
     [op saveFilterOptions];
-    [op release];
     
 }
 
@@ -113,8 +106,8 @@
     static NSString *CheckMarkCellIdentifier = @"CheckMarkCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CheckMarkCellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                       reuseIdentifier:CheckMarkCellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                       reuseIdentifier:CheckMarkCellIdentifier];
     }
     NSUInteger row = [indexPath row];
     cell.textLabel.text = [list objectAtIndex:row];

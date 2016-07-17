@@ -340,21 +340,20 @@ void* app_Thread_Start(void* args)
 
 -(void)showOptions
 {
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    __emulation_paused = 1;
-    {
-        iphone_menu = IPHONE_MENU_OPTIONS;
-        
-        OptionsController *addController =[[OptionsController alloc] init];
-        
-        UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:addController] autorelease];
-        [ navController setDelegate:self ];
-        
-        [self presentModalViewController:navController animated:YES];
-        
-        [addController release];
+    @autoreleasepool {
+        __emulation_paused = 1;
+        {
+            iphone_menu = IPHONE_MENU_OPTIONS;
+            
+            OptionsController *addController =[[OptionsController alloc] init];
+            
+            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:addController];
+            [ navController setDelegate:self ];
+            
+            [self presentModalViewController:navController animated:YES];
+            
+        }
     }
-    [pool release];
 }
 
 - (void)runMenu
@@ -589,7 +588,6 @@ void* app_Thread_Start(void* args)
 													otherButtonTitles: nil];
 	
 	       [warnAlert show];
-	       [warnAlert release];
        }
         
        if(overscanTVOUT != [op overscanValue])
@@ -601,7 +599,6 @@ void* app_Thread_Start(void* args)
 										delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
 	
 	       [warnAlert show];
-	       [warnAlert release];
        }
        
        iOS_inputTouchType = [op inputTouchType];
@@ -652,8 +649,6 @@ void* app_Thread_Start(void* args)
         
     }
         
-    [op2 release];
-    [op release];
     
     [self endMenu];
     
@@ -691,7 +686,6 @@ void* app_Thread_Start(void* args)
                                                                  delegate:self cancelButtonTitle:nil
                                                         otherButtonTitles:@"Yes",@"No",nil];
         [exitAlertView show];
-        [exitAlertView release];
     } 
     
     if(btnStates[BTN_R2] == BUTTON_PRESS && !actionPending)
@@ -706,7 +700,6 @@ void* app_Thread_Start(void* args)
 	rect.origin.x = rect.origin.y = 0.0f;
 	UIView *view= [[UIView alloc] initWithFrame:rect];
 	self.view = view;
-	[view release];
      self.view.backgroundColor = [UIColor blackColor];	
     externalView = nil;    
 }
@@ -826,7 +819,6 @@ void* app_Thread_Start(void* args)
     iOS_analogDeadZoneValue = [op analogDeadZoneValue];
     iOS_iCadeLayout = [op iCadeLayout];
             
-    [op release];
      
     FilterOptions *op2 = [[FilterOptions alloc] init];
     global_manufacturer = [op2 flt_manufacturer];
@@ -834,7 +826,6 @@ void* app_Thread_Start(void* args)
     global_filter = [op2 flt_filter];
     global_clones = [op2 flt_clones];
     global_year = [op2 flt_year];
-    [op2 release];
     
 
     [self changeUI];
@@ -855,7 +846,6 @@ void* app_Thread_Start(void* args)
 														otherButtonTitles: nil];
 			   			      
 		   [loadAlert show];
-	       [loadAlert release];
 	 }
     
     emuController = self;
@@ -870,7 +860,6 @@ void* app_Thread_Start(void* args)
 
      UIAlertView *alert = (UIAlertView *)sender;
      [alert dismissWithClickedButtonIndex:0 animated:YES];
-     [alert release];
 
 }
 
@@ -904,54 +893,51 @@ void* app_Thread_Start(void* args)
 }
 
 - (void)changeUI{
-   NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+   @autoreleasepool {
     
-  int prev_emulation_paused = __emulation_paused;
-   
-  __emulation_paused = 1;
-  
-  [self getConf];
-  
-  //reset_video(); 
-  
-  //if(!safe_render_path)
-      usleep(150000);//ensure some frames displayed
-  
-  //[self removeDPadView];
-        
-  [screenView removeFromSuperview];
-  [screenView release];
+    int prev_emulation_paused = __emulation_paused;
+     
+    __emulation_paused = 1;
+    
+    [self getConf];
+    
+    //reset_video(); 
+    
+    //if(!safe_render_path)
+        usleep(150000);//ensure some frames displayed
+    
+    //[self removeDPadView];
+          
+    [screenView removeFromSuperview];
 
-  if(imageBack!=nil)
-  {
-     [imageBack removeFromSuperview];
-     [imageBack release];
-     imageBack = nil;
-  }
-   
-  //si tiene overlay
-   if(imageOverlay!=nil)
-   {
-     [imageOverlay removeFromSuperview];
-     [imageOverlay release];
-     imageOverlay = nil;
-   }
-   
-   if((self.interfaceOrientation ==  UIDeviceOrientationLandscapeLeft) || (self.interfaceOrientation == UIDeviceOrientationLandscapeRight)){
+    if(imageBack!=nil)
+    {
+       [imageBack removeFromSuperview];
+       imageBack = nil;
+    }
+     
+    //si tiene overlay
+     if(imageOverlay!=nil)
+     {
+       [imageOverlay removeFromSuperview];
+       imageOverlay = nil;
+     }
+     
+     if((self.interfaceOrientation ==  UIDeviceOrientationLandscapeLeft) || (self.interfaceOrientation == UIDeviceOrientationLandscapeRight)){
 	   [self buildLandscape];	        	
-   } else	if((self.interfaceOrientation == UIDeviceOrientationPortrait) || (self.interfaceOrientation == UIDeviceOrientationPortraitUpsideDown)){	
-       [self buildPortrait];
-   }
+     } else	if((self.interfaceOrientation == UIDeviceOrientationPortrait) || (self.interfaceOrientation == UIDeviceOrientationPortraitUpsideDown)){	
+         [self buildPortrait];
+     }
 
-   //self.view.backgroundColor = [UIColor blackColor];
-   [self.view setNeedsDisplay];
-   	
-   iOS_exitPause = 1;
+     //self.view.backgroundColor = [UIColor blackColor];
+     [self.view setNeedsDisplay];
+     	
+     iOS_exitPause = 1;
 	
-   if(prev_emulation_paused!=1)
+     if(prev_emulation_paused!=1)
 	   __emulation_paused = 0;
 		
-   [pool release];
+   }
 }
 
 - (void)removeDPadView{
@@ -961,14 +947,12 @@ void* app_Thread_Start(void* args)
    if(dpadView!=nil)
    {
       [dpadView removeFromSuperview];
-      [dpadView release];
       dpadView=nil;
    }
    
    if(analogStickView!=nil)
    {
       [analogStickView removeFromSuperview];
-      [analogStickView release];
       analogStickView=nil;   
    }
    
@@ -977,7 +961,6 @@ void* app_Thread_Start(void* args)
       if(buttonViews[i]!=nil)
       {
          [buttonViews[i] removeFromSuperview];
-         [buttonViews[i] release];     
          buttonViews[i] = nil; 
       }
    }
@@ -1166,7 +1149,6 @@ void* app_Thread_Start(void* args)
 	  if(dview!=nil)
 	  {
 	    [dview removeFromSuperview];
-	    [dview release];
 	  }  	 
 	
 	  dview = [[DView alloc] initWithFrame:self.view.bounds];
@@ -1381,7 +1363,6 @@ void* app_Thread_Start(void* args)
 	  if(dview!=nil)
 	  {
         [dview removeFromSuperview];
-        [dview release];
       }	 	  
 	  
 	  dview = [[DView alloc] initWithFrame:self.view.bounds];
@@ -2072,22 +2053,11 @@ void* app_Thread_Start(void* args)
 
     [self removeDPadView];
 
-    if(screenView!=nil)
-      [screenView release];
        
-    if(imageBack!=nil)
-      [imageBack release];
       
-    if(imageOverlay!=nil)
-      [imageOverlay release];
  
-    if(dview!=nil)
-	   [dview release];
     
-    if(iCade!=nil)
-       [iCade release];
 	   
-	[super dealloc];
 }
 
 - (void)filldrectsController {

@@ -309,23 +309,15 @@ extern int isIphone4;
 													        cancelButtonTitle:@"OK" 
 													        otherButtonTitles: nil];	
 	           [errAlert show];
-	           [errAlert release];
 		}		
 	}
 	else
 	{
 
 		NSLog(error);		
-		[error release];		
 	}	
 }
 
-- (void)dealloc {
-    
-    [optionsArray dealloc];
-
-	[super dealloc];
-}
 
 @end
 
@@ -423,7 +415,6 @@ extern EmulatorController *emuController;
                                                                    style:UIBarButtonItemStyleBordered
                                                                   target: emuController  action:  @selector(done:) ];
     self.navigationItem.rightBarButtonItem = backButton;
-    [backButton release];
     
     self.title = NSLocalizedString(@"Settings", @"");
 
@@ -434,7 +425,6 @@ extern EmulatorController *emuController;
     tableView.dataSource = self;
     tableView.autoresizesSubviews = YES;
     self.view = tableView;
-    [tableView release];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -447,8 +437,7 @@ extern EmulatorController *emuController;
    if (cell == nil)
    {
       //If not possible create a new cell
-      cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"CellIdentifier"]
-                            autorelease];
+      cell = [[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"CellIdentifier"];
       cell.accessoryType = UITableViewCellAccessoryNone;
       cell.selectionStyle = UITableViewCellSelectionStyleNone;
    }
@@ -812,7 +801,6 @@ extern EmulatorController *emuController;
 
    }
      
-   [op release];
            
    return cell;    
 }
@@ -828,7 +816,6 @@ extern EmulatorController *emuController;
             op.buttonReload = TRUE;
             
             [op saveOptions];
-            [op release];
                                  
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             
@@ -837,7 +824,6 @@ extern EmulatorController *emuController;
                     message:[NSString stringWithFormat: @"The ROM directory has been rescanned"]
                       delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
             [warnAlert show];
-            [warnAlert release];
             
             break;
         }
@@ -891,73 +877,6 @@ extern EmulatorController *emuController;
 }
 
 
-- (void)dealloc {
-   if(switchKeepAspectPort!=nil)
-     [switchKeepAspectPort release];
-   if(switchKeepAspectLand!=nil)
-     [switchKeepAspectLand release];     
-   if(switchSmoothedPort!=nil)  
-     [switchSmoothedPort release];
-   if(switchSmoothedLand!=nil)  
-     [switchSmoothedLand release];
-   if(switchSafeRender!=nil)
-     [switchSafeRender release];
-   if(switchTvFilterPort!=nil)
-     [switchTvFilterPort release];
-   if(switchTvFilterLand!=nil)
-     [switchTvFilterLand release];
-   if(switchScanlineFilterPort!=nil)
-     [switchScanlineFilterPort release];
-   if(switchScanlineFilterLand!=nil)
-     [switchScanlineFilterLand release];
-     
-   if(switchShowFPS!=nil)
-     [switchShowFPS release];
-   if(switchShowINFO!=nil)
-     [switchShowINFO release];
-   if(switchAnimatedButtons!=nil)
-     [switchAnimatedButtons release];
-   if(switch4buttonsLand!=nil)
-     [switch4buttonsLand release];
-   if(switchfullLand!=nil)
-     [switchfullLand release];      
-   if(switchfullPort!=nil)
-     [switchfullPort release]; 
-          
-   if(segmentedSkin!=nil)
-     [segmentedSkin release];  
-     
-   if(segmentedWiiDeadZoneValue!=nil)
-    [segmentedWiiDeadZoneValue release];
-    
-   if(switchTouchDeadZone!=nil)
-     [switchTouchDeadZone release];
-     
-   if(segmentedOverscanValue!=nil)
-    [segmentedOverscanValue release];
-    
-   if(switchTvoutNative!=nil)
-     [switchTvoutNative release]; 
-
-   if(segmentedTouchType!=nil)
-     [segmentedTouchType release]; 
-
-   if(segmentedAnalogDeadZoneValue!=nil)
-    [segmentedAnalogDeadZoneValue release];
-    
-   if(segmentediCadeLayout!=nil)
-    [segmentediCadeLayout release]; 
-
-    if(segmentedSoundKHZ!=nil)
-        [segmentedSoundKHZ release]; 
-    if(segmentedSoundSTEREO!=nil)
-        [segmentedSoundSTEREO release]; 
-    
-//    if(buttonReload!=nil)
-//        [buttonReload release];
-         
-   [super dealloc];
-}
 
 - (void)optionChanged:(id)sender
 {
@@ -1041,7 +960,6 @@ extern EmulatorController *emuController;
     
 	[op saveOptions];
 		
-	[op release];
 }
 
 - (void)buttontapped:(id)sender
@@ -1052,7 +970,6 @@ extern EmulatorController *emuController;
     
     [op saveOptions];
     
-	[op release];
 }
 
 

@@ -151,7 +151,6 @@ void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint
                                                                 delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
                                            [alert show];                                           
                                            //[alert dismissWithClickedButtonIndex:0 animated:TRUE];                                           
-                                           [alert release];
                                            
                                            if(device!=nil)
                                            {
@@ -187,7 +186,6 @@ void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint
                                                                 delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
                                            [alert show];                                           
                                            //[alert dismissWithClickedButtonIndex:0 animated:TRUE];                                           
-                                           [alert release];
                                            [device setConnectionState:kBluetoothConnectionConnected];
                                            
                                            if(device!=nil)
@@ -302,7 +300,6 @@ void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint
                                                                      delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
                                                [alert show];                                           
                                                                                       
-                                               [alert release];
 	                                        }
                                                                                                                                                                                                                                                  
                                         }
@@ -382,7 +379,6 @@ void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint
 	  
 	  CGFloat navBarHeight = 45;     
 	  UINavigationBar *navBar = [ [ UINavigationBar alloc ] initWithFrame: CGRectMake(0, 0, navBarWidht , navBarHeight)];
-	  [navBar autorelease];
 	  [navBar setDelegate: inqViewControl ];
 	  
 	  
@@ -403,11 +399,9 @@ void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint
 	   navLabel.font = [UIFont systemFontOfSize: 18];
 	   navLabel.textAlignment = UITextAlignmentLeft;
 	   [navBar addSubview:navLabel];
-	   [navLabel release];
 	   
 	     
 	   [[inqViewControl tableView] setTableHeaderView:navBar];
-	   [navBar release];
     
     }
     
@@ -420,7 +414,6 @@ void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint
 	                     otherButtonTitles:@"Yes",@"No",nil];
 	                      
 	        [alertView show];
-            [alertView release];
     }
        
     [controller presentModalViewController:inqViewControl animated:YES];

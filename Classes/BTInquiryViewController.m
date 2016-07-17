@@ -117,6 +117,7 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packe
 			switch (packet[0]){
 					
 				case BTSTACK_EVENT_STATE:
+                {
 					// bt stack activated
 					bluetoothState = packet[2];
 					[[self tableView] reloadData];
@@ -128,8 +129,9 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packe
 					}
 */					
 					break;
-					
+                }
 				case BTSTACK_EVENT_POWERON_FAILED:
+                {
 					bluetoothState = HCI_STATE_OFF;
 					[[self tableView] reloadData];
 					
@@ -141,7 +143,7 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packe
 					[alertView addButtonWithTitle:@"Dismiss"];
 					[alertView show];
 					break;
-					
+                }
 				case HCI_EVENT_INQUIRY_RESULT:
 				case HCI_EVENT_INQUIRY_RESULT_WITH_RSSI:
 				{
@@ -172,6 +174,7 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packe
 					break;
 					
 				case HCI_EVENT_REMOTE_NAME_REQUEST_COMPLETE:
+                {
 					bt_flip_addr(event_addr, &packet[3]);
 					BTDevice *dev = [inqView getDeviceForAddress:&event_addr];
 					if (!dev) break;
@@ -186,8 +189,9 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packe
 					remoteNameIndex++;
 					[self getNextRemoteName];
 					break;
-										
+                }
 				case HCI_EVENT_COMMAND_COMPLETE:
+                {
 					if (COMMAND_COMPLETE_EVENT(packet, hci_inquiry_cancel)){
 						// inquiry canceled
 						NSLog(@"Inquiry cancelled successfully");
@@ -214,14 +218,15 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packe
 					}
 					
 					break;
-					
+                }
 				case HCI_EVENT_INQUIRY_COMPLETE:
+                {
 					NSLog(@"Inquiry complete");
 					// reset name check
 					remoteNameIndex = 0;
 					[self getNextRemoteName];
 					break;
-					
+                }
 				default:
 					break;
 					
@@ -425,7 +430,6 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packe
 	// unregister self
 	bt_register_packet_handler(clientHandler);
 	// done
-    [super dealloc];
 }
 
 
@@ -457,7 +461,7 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packe
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:/* UITableViewCellStyleDefault = */0 reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:/* UITableViewCellStyleDefault = */0 reuseIdentifier:CellIdentifier];
 		// cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     

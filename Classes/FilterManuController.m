@@ -56,7 +56,6 @@
 - (void)viewDidLoad {
 	NSArray *array = [[NSArray alloc] initWithObjects:MANUFACTURER_LIST, nil];
 	self.list = array;
-	[array release];
     [super viewDidLoad];
 }
 
@@ -64,17 +63,12 @@
 	[super viewDidUnload];
 }
 
-- (void)dealloc {
-	[list release];
-	[super dealloc];
-}
 
 - (void)viewWillAppear:(BOOL)animated {
     self.title = @"Manufacturer";
     
     FilterOptions *op = [[FilterOptions alloc] init];
     manufacturer = op.flt_manufacturer;
-    [op release];
 
     [super viewWillAppear:animated];
 }
@@ -95,7 +89,6 @@
     op.flt_manufacturer = manufacturer;
     
     [op saveFilterOptions];
-    [op release];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -112,8 +105,8 @@
     static NSString *CheckMarkCellIdentifier = @"CheckMarkCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CheckMarkCellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                 reuseIdentifier:CheckMarkCellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                 reuseIdentifier:CheckMarkCellIdentifier];
     }
     NSUInteger row = [indexPath row];
     cell.textLabel.text = [list objectAtIndex:row];

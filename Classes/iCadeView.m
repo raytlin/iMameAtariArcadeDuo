@@ -84,7 +84,6 @@ extern unsigned long iCadeUsed;
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
-    [super dealloc];
 }
 
 - (void)didEnterBackground {
@@ -428,7 +427,6 @@ extern unsigned long iCadeUsed;
     
     UIAlertView *alert = (UIAlertView *)sender;
     [alert dismissWithClickedButtonIndex:0 animated:YES];
-    [alert release];    
 }
 
 @end

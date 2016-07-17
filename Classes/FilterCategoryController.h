@@ -49,7 +49,7 @@
     NSInteger category;
 }
 
-@property (nonatomic, retain) NSArray *list;
+@property (nonatomic, strong) NSArray *list;
 @property (nonatomic, assign) NSInteger category;
 
 

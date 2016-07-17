@@ -82,7 +82,7 @@
     NSInteger         local_filter;
 }
 
-@property (nonatomic, retain) UIViewController *savedparent;
+@property (nonatomic, strong) UIViewController *savedparent;
 @property (nonatomic, assign) NSInteger local_filter;
 
 @end

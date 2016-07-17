@@ -55,7 +55,6 @@
 - (void)viewDidLoad {
 	NSArray *array = [[NSArray alloc] initWithObjects:CATEGORY_LIST, nil];
 	self.list = array;
-	[array release];
     [super viewDidLoad];
 }
 
@@ -63,17 +62,12 @@
 	[super viewDidUnload];
 }
 
-- (void)dealloc {
-	[list release];
-	[super dealloc];
-}
 
 - (void)viewWillAppear:(BOOL)animated {
     self.title = @"Category";
     
     FilterOptions *op = [[FilterOptions alloc] init];
     category = op.flt_category;
-    [op release];
 
     [super viewWillAppear:animated];
 
@@ -94,7 +88,6 @@
     op.flt_category = category;
     
     [op saveFilterOptions];
-    [op release];
     
 }
 
@@ -112,8 +105,8 @@
     static NSString *CheckMarkCellIdentifier = @"CheckMarkCellIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CheckMarkCellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                 reuseIdentifier:CheckMarkCellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                 reuseIdentifier:CheckMarkCellIdentifier];
     }
     NSUInteger row = [indexPath row];
     cell.textLabel.text = [list objectAtIndex:row];

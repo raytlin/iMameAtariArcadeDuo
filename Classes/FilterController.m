@@ -140,18 +140,12 @@ enum ControlTableSections
                                         @"Filter couldn't be saved.\n Check for write permissions. chmod 777 if needed. See help." 
                                         delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];	
             [errAlert show];
-            [errAlert release];
 		}		
 	} else {        
 		NSLog(error);		
-		[error release];		
 	}	
 }
 
-- (void)dealloc {
-    [filterArray dealloc];
-	[super dealloc];
-}
 
 @end
 
@@ -188,7 +182,6 @@ enum ControlTableSections
                                                             style:UIBarButtonItemStyleBordered 
                                                             target:savedparent  action:  @selector(done:) ];
     self.navigationItem.rightBarButtonItem = backButton;
-    [backButton release];
 
     self.title = NSLocalizedString(@"Game Filter", @"");
        
@@ -201,7 +194,6 @@ enum ControlTableSections
     tableView.dataSource = self;
     tableView.autoresizesSubviews = YES;
     self.view = tableView;
-    [tableView release];
     
 }
 
@@ -239,9 +231,9 @@ enum ControlTableSections
     {
         //If not possible create a new cell
         if (indexPath.section == kFilterClearSection) {
-            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CellIdentifier"] autorelease];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CellIdentifier"];
         } else {
-            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CellIdentifier"] autorelease];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CellIdentifier"];
         }
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -283,7 +275,6 @@ enum ControlTableSections
                     
                     NSArray *array = [[NSArray alloc] initWithObjects:CATEGORY_LIST, nil];
                     cell.detailTextLabel.text = [array objectAtIndex:op.flt_category];
-                    [array release];
                     break;
                 }
 
@@ -294,7 +285,6 @@ enum ControlTableSections
                     
                     NSArray *array = [[NSArray alloc] initWithObjects:MANUFACTURER_LIST, nil];
                     cell.detailTextLabel.text = [array objectAtIndex:op.flt_manufacturer];
-                    [array release];
                     break;
                 }
                 case 2:
@@ -304,7 +294,6 @@ enum ControlTableSections
                     
                     NSArray *array = [[NSArray alloc] initWithObjects:YEAR_LIST, nil];
                     cell.detailTextLabel.text = [array objectAtIndex:op.flt_year];
-                    [array release];
                     break;
                 }
 
@@ -332,7 +321,6 @@ enum ControlTableSections
 
 	}
 
-    [op release];
     
     return cell;  
 }
@@ -353,7 +341,6 @@ enum ControlTableSections
                 filterCategoryController.category = op.flt_category; 
                 // Push the detail view controller.
                 [[self navigationController] pushViewController:filterCategoryController animated:YES];
-                [filterCategoryController release];
             }
 
             if (row == 1) {
@@ -362,7 +349,6 @@ enum ControlTableSections
                 filterManuController.manufacturer = op.flt_manufacturer; 
                 // Push the detail view controller.
                 [[self navigationController] pushViewController:filterManuController animated:YES];
-                [filterManuController release];
             }
             
             
@@ -372,7 +358,6 @@ enum ControlTableSections
                 filterYearController.fyear = op.flt_year; 
                 // Push the detail view controller.
                 [[self navigationController] pushViewController:filterYearController animated:YES];
-                [filterYearController release];
             }
             
     		break;
@@ -401,17 +386,9 @@ enum ControlTableSections
         }
 	}
     
-    [op release];
 }
 
 
-- (void)dealloc {
-    if(switchclones!=nil)   [switchclones release];     
-
-    [savedparent release];
-    
-    [super dealloc];
-}
 
 - (void)optionChanged:(id)sender {
     FilterOptions *op = [[FilterOptions alloc] init];
@@ -419,7 +396,6 @@ enum ControlTableSections
     if(sender==switchclones) op.flt_clones = [switchclones isOn];
     
 	[op saveFilterOptions];
-	[op release];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -429,7 +405,6 @@ enum ControlTableSections
     op.flt_filter = local_filter;
 
     [op saveFilterOptions];
-    [op release];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -437,7 +412,6 @@ enum ControlTableSections
 
     FilterOptions *op = [[FilterOptions alloc] init];
 	local_filter = op.flt_filter;
-    [op release];
     
     //SQ: reload view from any sub table changes
     [self.tableView reloadData];

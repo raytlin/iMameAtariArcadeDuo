@@ -50,7 +50,7 @@
     NSInteger fyear;
 }
 
-@property (nonatomic, retain) NSArray *list;
+@property (nonatomic, strong) NSArray *list;
 @property (nonatomic, assign) NSInteger fyear;
 
 
