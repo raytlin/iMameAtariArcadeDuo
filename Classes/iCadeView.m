@@ -391,8 +391,9 @@ extern unsigned long iCadeUsed;
             // If the state is the same, let the current state run
             return;
         } else {
-            // If the state is different, we need to send the "up" state to the previously used state
-            [strongSelf undoState:strongSelf.duoPreviousState];
+            // If the state is different, we need to send the "up" state to everything that went from 1 to 0.
+            uint8_t stateToUndo = state & (~strongSelf.duoPreviousState);
+            [strongSelf undoState:stateToUndo];
             // Now the current state becomes the last state
             strongSelf.duoPreviousState = state;
         }
@@ -407,54 +408,47 @@ extern unsigned long iCadeUsed;
         }
         if (state & ATARI_BUTT_A) {
             [strongSelf insertText:@"l"];
-            
         }
         if (state & ATARI_RIGHT) {
             [strongSelf insertText:@"d"];
         }
         if (state & ATARI_LEFT) {
             [strongSelf insertText:@"a"];
-            
         }
         if (state & ATARI_DOWN) {
             [strongSelf insertText:@"x"];
         }
         if (state & ATARI_UP) {
             [strongSelf insertText:@"w"];
-            
         }
     };
 }
 
 - (void)undoState:(uint8_t)state
 {
-    switch (state) {
-        case ATARI_UP:
-            [self insertText:@"e"];
-            break;
-        case ATARI_DOWN:
-            [self insertText:@"z"];
-            break;
-        case ATARI_RIGHT:
-            [self insertText:@"c"];
-            break;
-        case ATARI_LEFT:
-            [self insertText:@"q"];
-            break;
-        case ATARI_BUTT_A:
-            [self insertText:@"v"];
-            break;
-        case ATARI_BUTT_B:
-            [self insertText:@"g"];
-            break;
-        case ATARI_BUTT_X:
-            [self insertText:@"p"];
-            break;
-        case ATARI_BUTT_Y:
-            [self insertText:@"m"];
-            break;
-        default:
-            break;
+    if (state & ATARI_BUTT_Y) {
+        [self insertText:@"m"];
+    }
+    if (state & ATARI_BUTT_X) {
+        [self insertText:@"p"];
+    }
+    if (state & ATARI_BUTT_B) {
+        [self insertText:@"g"];
+    }
+    if (state & ATARI_BUTT_A) {
+        [self insertText:@"v"];
+    }
+    if (state & ATARI_RIGHT) {
+        [self insertText:@"c"];
+    }
+    if (state & ATARI_LEFT) {
+        [self insertText:@"q"];
+    }
+    if (state & ATARI_DOWN) {
+        [self insertText:@"z"];
+    }
+    if (state & ATARI_UP) {
+        [self insertText:@"e"];
     }
 }
 
