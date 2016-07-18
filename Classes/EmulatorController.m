@@ -1536,7 +1536,7 @@ void* app_Thread_Start(void* args)
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {	       
    
-    if(((btUsed || iCadeUsed) && ((!iphone_is_landscape && iOS_full_screen_port) || (iphone_is_landscape && iOS_full_screen_land)))) 
+    if(!iCade.isUsingAtariDuoPad && ((btUsed || iCadeUsed) && ((!iphone_is_landscape && iOS_full_screen_port) || (iphone_is_landscape && iOS_full_screen_land))))
     {
         NSSet *allTouches = [event allTouches];
         UITouch *touch = [[allTouches allObjects] objectAtIndex:0];
@@ -1594,6 +1594,18 @@ void* app_Thread_Start(void* args)
 			
 			if(!iOS_inputTouchType)
 			{
+                // Test to see if using ataricontoller in fullscreen
+                // if so only process the start and coin buttons else show the menu
+                if (iCade.isUsingAtariDuoPad && (!iphone_is_landscape && iOS_full_screen_port)) {
+                    if (!MyCGRectContainsPoint(Select, point) && !MyCGRectContainsPoint(Start, point)) {
+                        // anything but the start and coin buttons were touched
+                        // open the menu and return
+                        [self runMenu];
+                        return;
+                    }
+                }
+                
+                
 				if (MyCGRectContainsPoint(Up, point) && !STICK2WAY) {
 					//NSLog(@"GP2X_UP");
 					gp2x_pad_status |= GP2X_UP;
