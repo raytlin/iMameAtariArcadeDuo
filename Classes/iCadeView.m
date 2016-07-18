@@ -406,7 +406,7 @@ extern unsigned long iCadeUsed;
         } else {
             
         }
-        if (state & ATARI_RIGHT && !(strongSelf.duoPreviousState & ATARI_RIGHT)) {
+        if (state & ATARI_RIGHT) {
             [strongSelf insertText:@"d"];
         }
         if (state & ATARI_LEFT) {
