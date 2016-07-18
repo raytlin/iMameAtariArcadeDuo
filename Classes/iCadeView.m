@@ -59,6 +59,7 @@ extern unsigned long iCadeUsed;
 @interface iCadeView ()
 
 @property (nonatomic, strong) AtariDuoGamePad *atariDuoPad;
+@property (nonatomic, assign) uint8_t duoPreviousState;
 
 @end
 
@@ -367,11 +368,22 @@ extern unsigned long iCadeUsed;
 
 - (void)configureAtariGamepadHandler
 {
+    __weak iCadeView *weakself = self;
     self.atariDuoPad.handler = ^(uint8_t state) {
-        if(!self.atariDuoPad.isConnected) {
+        iCadeView *strongSelf = weakself;
+        if (!strongSelf) {
             return;
-        } else if (state == 0) {
+        }
+        if(!strongSelf.atariDuoPad.isConnected) {
             return;
+        } else if (state & strongSelf.duoPreviousState) {
+            // If the state is the same, let the current state run
+            return;
+        } else {
+            // If the state is different, we need to send the "up" state to the previously used state
+            [strongSelf undoState:strongSelf.duoPreviousState];
+            // Now the current state becomes the last state
+            strongSelf.duoPreviousState = state;
         }
         if (state & ATARI_BUTT_Y) {
             
@@ -394,29 +406,41 @@ extern unsigned long iCadeUsed;
         } else {
             
         }
-        if (state & ATARI_RIGHT) {
-            [self insertText:@"d"];
-        } else {
-            
+        if (state & ATARI_RIGHT && !(strongSelf.duoPreviousState & ATARI_RIGHT)) {
+            [strongSelf insertText:@"d"];
         }
         if (state & ATARI_LEFT) {
-            [self insertText:@"a"];
-            
-        } else {
+            [strongSelf insertText:@"a"];
             
         }
         if (state & ATARI_DOWN) {
-            [self insertText:@"x"];
-        } else {
-            
+            [strongSelf insertText:@"x"];
         }
         if (state & ATARI_UP) {
-            [self insertText:@"w"];
-            
-        } else {
+            [strongSelf insertText:@"w"];
             
         }
     };
+}
+
+- (void)undoState:(uint8_t)state
+{
+    switch (state) {
+        case ATARI_UP:
+            [self insertText:@"e"];
+            break;
+        case ATARI_DOWN:
+            [self insertText:@"z"];
+            break;
+        case ATARI_RIGHT:
+            [self insertText:@"c"];
+            break;
+        case ATARI_LEFT:
+            [self insertText:@"q"];
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)deleteBackward {
