@@ -366,6 +366,17 @@ extern unsigned long iCadeUsed;
     [emuController handle_DPAD];
 }
 
+- (void)deleteBackward {
+    // This space intentionally left blank to complete protocol
+}
+
+-(void)autoDimiss:(id)sender {
+    
+    UIAlertView *alert = (UIAlertView *)sender;
+    [alert dismissWithClickedButtonIndex:0 animated:YES];
+}
+
+#pragma mark - AtariGamePad
 - (void)configureAtariGamepadHandler
 {
     __weak iCadeView *weakself = self;
@@ -386,24 +397,16 @@ extern unsigned long iCadeUsed;
             strongSelf.duoPreviousState = state;
         }
         if (state & ATARI_BUTT_Y) {
-            
-        } else {
-            
+            [strongSelf insertText:@"i"];
         }
         if (state & ATARI_BUTT_X) {
-            
-        } else {
-            
+            [strongSelf insertText:@"k"];
         }
         if (state & ATARI_BUTT_B) {
-            
-        } else {
-            
+            [strongSelf insertText:@"o"];
         }
         if (state & ATARI_BUTT_A) {
-            
-            
-        } else {
+            [strongSelf insertText:@"l"];
             
         }
         if (state & ATARI_RIGHT) {
@@ -438,19 +441,21 @@ extern unsigned long iCadeUsed;
         case ATARI_LEFT:
             [self insertText:@"q"];
             break;
+        case ATARI_BUTT_A:
+            [self insertText:@"v"];
+            break;
+        case ATARI_BUTT_B:
+            [self insertText:@"g"];
+            break;
+        case ATARI_BUTT_X:
+            [self insertText:@"p"];
+            break;
+        case ATARI_BUTT_Y:
+            [self insertText:@"m"];
+            break;
         default:
             break;
     }
-}
-
-- (void)deleteBackward {
-    // This space intentionally left blank to complete protocol
-}
-
--(void)autoDimiss:(id)sender {
-    
-    UIAlertView *alert = (UIAlertView *)sender;
-    [alert dismissWithClickedButtonIndex:0 animated:YES];
 }
 
 @end
