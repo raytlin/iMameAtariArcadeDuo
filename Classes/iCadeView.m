@@ -387,41 +387,54 @@ extern unsigned long iCadeUsed;
         }
         if(!strongSelf.atariDuoPad.isConnected) {
             return;
-        } else if (state & strongSelf.duoPreviousState) {
+        } else if (state == strongSelf.duoPreviousState) {
             // If the state is the same, let the current state run
             return;
-        } else {
+        } else if (!strongSelf.duoPreviousState) {
+            // this is the first time running. just do whatever the state is
+            [strongSelf executeState:state];
+            strongSelf.duoPreviousState = state;
+        } else { // Every 1->0 needs to be undone and every 0->1 needs to execute
             // If the state is different, we need to send the "up" state to everything that went from 1 to 0.
             uint8_t stateToUndo = strongSelf.duoPreviousState & (~state);
             [strongSelf undoState:stateToUndo];
+            
+            // Execute new buttons that have become active
+            uint8_t stateToExecute = ~strongSelf.duoPreviousState & state;
+            [strongSelf executeState:stateToExecute];
+            
             // Now the current state becomes the last state
             strongSelf.duoPreviousState = state;
         }
-        if (state & ATARI_BUTT_Y) {
-            [strongSelf insertText:@"i"];
-        }
-        if (state & ATARI_BUTT_X) {
-            [strongSelf insertText:@"k"];
-        }
-        if (state & ATARI_BUTT_B) {
-            [strongSelf insertText:@"o"];
-        }
-        if (state & ATARI_BUTT_A) {
-            [strongSelf insertText:@"l"];
-        }
-        if (state & ATARI_RIGHT) {
-            [strongSelf insertText:@"d"];
-        }
-        if (state & ATARI_LEFT) {
-            [strongSelf insertText:@"a"];
-        }
-        if (state & ATARI_DOWN) {
-            [strongSelf insertText:@"x"];
-        }
-        if (state & ATARI_UP) {
-            [strongSelf insertText:@"w"];
-        }
     };
+}
+
+- (void)executeState:(uint8_t)state
+{
+    if (state & ATARI_BUTT_Y) {
+        [self insertText:@"i"];
+    }
+    if (state & ATARI_BUTT_X) {
+        [self insertText:@"k"];
+    }
+    if (state & ATARI_BUTT_B) {
+        [self insertText:@"o"];
+    }
+    if (state & ATARI_BUTT_A) {
+        [self insertText:@"l"];
+    }
+    if (state & ATARI_RIGHT) {
+        [self insertText:@"d"];
+    }
+    if (state & ATARI_LEFT) {
+        [self insertText:@"a"];
+    }
+    if (state & ATARI_DOWN) {
+        [self insertText:@"x"];
+    }
+    if (state & ATARI_UP) {
+        [self insertText:@"w"];
+    }
 }
 
 - (void)undoState:(uint8_t)state
