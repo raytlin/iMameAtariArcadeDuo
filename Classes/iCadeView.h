@@ -64,5 +64,6 @@
 - (id)initWithFrame:(CGRect)frame withEmuController:(EmulatorController*)emulatorController;
 
 @property (nonatomic, assign) BOOL active;
+@property (nonatomic, assign) BOOL isUsingAtariDuoPad;
 
 @end

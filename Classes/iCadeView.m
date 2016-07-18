@@ -377,8 +377,11 @@ extern unsigned long iCadeUsed;
 }
 
 #pragma mark - AtariGamePad
-- (void)configureAtariGamepadHandler
-{
+- (BOOL)isUsingAtariDuoPad {
+    return self.atariDuoPad.isConnected;
+}
+
+- (void)configureAtariGamepadHandler {
     __weak iCadeView *weakself = self;
     self.atariDuoPad.handler = ^(uint8_t state) {
         iCadeView *strongSelf = weakself;
