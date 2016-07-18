@@ -974,7 +974,47 @@ void* app_Thread_Start(void* args)
    
    [self removeDPadView];
     
-   btUsed = num_of_joys!=0; 
+   btUsed = num_of_joys!=0;
+    
+    if (iCade.isUsingAtariDuoPad && (!iphone_is_landscape && iOS_full_screen_port)) {
+       // When using the atari duo pad, the start and coin onscreen buttons need to be present because they are not available on the controller
+        for(i=0; i<NUM_BUTTONS;i++)
+        {
+            
+            if(iphone_is_landscape || (!iphone_is_landscape && iOS_full_screen_port))
+            {
+                if(i==BTN_Y && iOS_landscape_buttons < 4)continue;
+                if(i==BTN_A && iOS_landscape_buttons < 3)continue;
+                if(i==BTN_X && iOS_landscape_buttons < 2)continue;
+                if(i==BTN_B && iOS_landscape_buttons < 1)continue;
+                
+                if(i==BTN_L1 && (iOS_hide_LR || !iOS_inGame))continue;
+                if(i==BTN_R1 && (iOS_hide_LR || !iOS_inGame))continue;
+            }
+            
+            //if((i==BTN_Y || i==BTN_A) && !iOS_4buttonsLand && iphone_is_landscape)
+            //continue;
+            NSString *name;
+            name = [NSString stringWithFormat:@"./SKIN_%d/%@",iOS_skin,nameImgButton_NotPress[i]];
+            
+            // Only continue for buttons that contain "select" or "start"
+            if ([name containsString:@"select"] || [name containsString:@"start"])
+            {
+                buttonViews[i] = [ [ UIImageView alloc ] initWithImage:[UIImage imageNamed:name]];
+                buttonViews[i].frame = rButton_image[i];
+                
+                if((iphone_is_landscape && (iOS_full_screen_land /*|| i==BTN_Y || i==BTN_A*/)) || (!iphone_is_landscape && iOS_full_screen_port))
+                    [buttonViews[i] setAlpha:((float)iphone_controller_opacity / 100.0f)];
+                
+                if(iphone_is_landscape && !iOS_full_screen_land && isIphone5 && (i==BTN_Y || i==BTN_A || i==BTN_L1 || i==BTN_R1) )
+                    [buttonViews[i] setAlpha:((float)iphone_controller_opacity / 100.0f)];
+                
+                [self.view addSubview: buttonViews[i]];
+                btnStates[i] = old_btnStates[i] = BUTTON_NO_PRESS;
+            }
+        }
+ 
+    }
    
    if((btUsed || iCadeUsed) && ((!iphone_is_landscape && iOS_full_screen_port) || (iphone_is_landscape && iOS_full_screen_land)))
      return;
