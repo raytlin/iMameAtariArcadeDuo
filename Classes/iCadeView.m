@@ -392,7 +392,7 @@ extern unsigned long iCadeUsed;
             return;
         } else {
             // If the state is different, we need to send the "up" state to everything that went from 1 to 0.
-            uint8_t stateToUndo = state & (~strongSelf.duoPreviousState);
+            uint8_t stateToUndo = strongSelf.duoPreviousState & (~state);
             [strongSelf undoState:stateToUndo];
             // Now the current state becomes the last state
             strongSelf.duoPreviousState = state;
